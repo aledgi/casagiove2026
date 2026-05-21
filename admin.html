@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin – Casagiove 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blu:#0f2540;--giallo:#f5a800;--azzurro:#1d6fb8;
+  --verde:#16a34a;--rosso:#dc2626;
+  --g1:#f8fafc;--g2:#e2e8f0;--g3:#94a3b8;--g4:#64748b;
+  --testo:#0f172a;
+}
+body{font-family:"Inter",sans-serif;background:#f1f5f9;color:var(--testo);}
+.hdr{background:var(--blu);padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:12px;flex-wrap:wrap;}
+.hdr h1{color:white;font-size:.9rem;font-weight:700;}
+.hdr p{color:#94a3b8;font-size:.68rem;}
+.admin-badge{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3);padding:3px 10px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.07em;}
+
+main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
+.topbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+.topbar p{margin-left:auto;font-size:.7rem;color:var(--g3);}
+.btn{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:opacity .15s,transform .1s;}
+.btn:hover{opacity:.85;transform:translateY(-1px);}
+.btn-y{background:var(--giallo);color:#0f2540;}
+.btn-r{background:var(--rosso);color:white;}
+.btn-b{background:var(--azzurro);color:white;}
+.btn-ghost{background:white;color:var(--testo);border:1px solid var(--g2);}
+
+.info{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:10px 14px;margin-bottom:14px;font-size:.76rem;color:#92400e;line-height:1.65;}
+.info strong{color:#78350f;}
+
+/* LAYOUT A DUE COLONNE: sidebar sezioni + form */
+.layout{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:start;}
+@media(max-width:640px){.layout{grid-template-columns:1fr;}}
+
+/* SIDEBAR */
+.sidebar{background:white;border-radius:12px;border:1px solid var(--g2);padding:10px;position:sticky;top:10px;}
+.sidebar-title{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);margin-bottom:8px;padding:0 4px;}
+.sez-btn{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:7px;border:none;background:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.78rem;font-weight:500;color:var(--g5);transition:background .15s;margin-bottom:2px;}
+.sez-btn:hover{background:var(--g1);}
+.sez-btn.active{background:#fef9ec;color:#92400e;font-weight:700;}
+.sez-btn.saved{color:var(--verde);}
+.sez-btn.saved.active{background:#f0fdf4;color:var(--verde);}
+
+/* FORM */
+.form-panel{background:white;border-radius:12px;border:1px solid var(--g2);padding:18px 20px;}
+.fp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.fp-title{font-size:1rem;font-weight:800;}
+.st{font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:5px;}
+.st.empty{background:var(--g1);color:var(--g3);}
+.st.ok{background:#dcfce7;color:#166534;}
+
+/* PREVIEW */
+.preview{display:flex;gap:8px;flex-wrap:wrap;background:var(--g1);border-radius:9px;padding:10px 14px;margin-bottom:14px;}
+.prev-item{flex:1;min-width:80px;text-align:center;}
+.prev-lbl{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g3);}
+.prev-val{font-size:1.15rem;font-weight:800;margin-top:2px;}
+.prev-val.v{color:var(--giallo);}
+.prev-val.m{color:var(--azzurro);}
+.prev-val.n{color:var(--g5);}
+
+/* SEZIONE FORM */
+.section-group{margin-bottom:16px;}
+.sg-title{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid;display:flex;align-items:center;gap:6px;}
+.sg-title.scr{color:var(--g4);border-color:var(--g2);}
+.sg-title.sv{color:#b45309;border-color:#fde68a;}
+.sg-title.sm{color:#1d4ed8;border-color:#bfdbfe;}
+.fg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
+.fg{}
+.fg label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fg input{width:100%;background:var(--g1);border:1px solid var(--g2);border-radius:7px;padding:7px 10px;color:var(--testo);font-family:"Inter",sans-serif;font-size:.9rem;font-weight:700;transition:border-color .2s;-moz-appearance:textfield;}
+.fg input::-webkit-inner-spin-button,.fg input::-webkit-outer-spin-button{-webkit-appearance:none;}
+.fg input:focus{outline:none;border-color:var(--focus-color,var(--giallo));background:white;}
+
+.actions{display:flex;gap:8px;margin-top:16px;}
+.actions .btn{flex:1;justify-content:center;}
+
+#toast{position:fixed;bottom:16px;right:16px;padding:10px 18px;border-radius:8px;font-size:.8rem;font-weight:600;color:white;transform:translateY(60px);opacity:0;transition:all .3s;z-index:9999;}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.ok{background:var(--verde);}
+#toast.err{background:var(--rosso);}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div>
+    <h1>Admin – Inserimento Risultati Casagiove 2026</h1>
+    <p>Percentuali calcolate automaticamente · 15 sezioni · 32 candidati</p>
+  </div>
+  <div class="admin-badge">RISERVATO</div>
+</div>
+
+<main>
+  <div class="info">
+    <strong>Come usare:</strong> Seleziona una sezione dalla barra a sinistra. Inserisci <strong>schede totali</strong>, <strong>schede contate</strong>, i <strong>voti lista</strong> per i due sindaci, le <strong>schede bianche e nulle</strong>, e le <strong>preferenze</strong> dei candidati. Le % vengono calcolate in anteprima automaticamente. Premi <strong>Ctrl+S</strong> per salvare la sezione attiva.
+  </div>
+
+  <div class="topbar">
+    <button class="btn btn-b" onclick="window.open('risultati.html','_blank')">&#128065; Risultati live</button>
+    <button class="btn btn-r" onclick="resetTutto()">&#128465; Reset completo</button>
+    <p>Dati visibili online entro 10 secondi</p>
+  </div>
+
+  <div class="layout">
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div class="sidebar-title">Sezioni</div>
+      <div id="sidebar-btns"></div>
+    </div>
+
+    <!-- FORM -->
+    <div class="form-panel" id="form-panel">
+      <div class="fp-top">
+        <div class="fp-title" id="fp-title">Sezione 1</div>
+        <div class="st empty" id="fp-st">Non salvata</div>
+      </div>
+
+      <!-- PREVIEW -->
+      <div class="preview">
+        <div class="prev-item"><div class="prev-lbl">% Scrutinio</div><div class="prev-val n" id="prev-scr">—</div></div>
+        <div class="prev-item"><div class="prev-lbl">Vozza %</div><div class="prev-val v" id="prev-v">—</div></div>
+        <div class="prev-item"><div class="prev-lbl">Moscatiello %</div><div class="prev-val m" id="prev-m">—</div></div>
+        <div class="prev-item"><div class="prev-lbl">Voti validi</div><div class="prev-val n" id="prev-val">—</div></div>
+        <div class="prev-item"><div class="prev-lbl">Bianche+Nulle</div><div class="prev-val n" id="prev-bn">—</div></div>
+      </div>
+
+      <!-- SCHEDE -->
+      <div class="section-group">
+        <div class="sg-title scr">&#128203; Schede</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:var(--g4)">Totale schede sezione</label><input type="number" id="f-tot" min="0" step="1" placeholder="es. 520" oninput="updatePreview()" style="--focus-color:#64748b"></div>
+          <div class="fg"><label style="color:var(--g4)">Schede contate</label><input type="number" id="f-cont" min="0" step="1" placeholder="es. 520" oninput="updatePreview()" style="--focus-color:#64748b"></div>
+          <div class="fg"><label style="color:#dc2626">Schede bianche</label><input type="number" id="f-bianche" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
+          <div class="fg"><label style="color:#dc2626">Schede nulle</label><input type="number" id="f-nulle" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
+        </div>
+      </div>
+
+      <!-- VOTI SINDACI -->
+      <div class="section-group">
+        <div class="sg-title sv">&#9632; Voti lista Vozza</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:#b45309">Voti Vozza</label><input type="number" id="f-vv" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#f5a800"></div>
+        </div>
+      </div>
+      <div class="section-group">
+        <div class="sg-title sm">&#9632; Voti lista Moscatiello</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:#1d4ed8">Voti Moscatiello</label><input type="number" id="f-vm" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#1d6fb8"></div>
+        </div>
+      </div>
+
+      <!-- PREFERENZE VOZZA -->
+      <div class="section-group">
+        <div class="sg-title sv">&#9632; Preferenze candidati – Lista Vozza</div>
+        <div class="fg-grid" id="prefs-v"></div>
+      </div>
+
+      <!-- PREFERENZE MOSCATIELLO -->
+      <div class="section-group">
+        <div class="sg-title sm">&#9632; Preferenze candidati – Lista Moscatiello</div>
+        <div class="fg-grid" id="prefs-m"></div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-y" onclick="salva()">&#128190; Salva sezione</button>
+        <button class="btn btn-ghost" onclick="resetSez()">&#10005; Reset sezione</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+const DB = "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app";
+const CANDS_V = ["Valerio Cappio", "Anna Altavilla", "Gennaro Caiazza", "Elpidio Scialla", "Maria Rosaria Tavano", "Alessandro Antonelli", "Carlo Senatore", "Armando Celentano", "Giovanna Ferrante", "Daniela Rettore", "Anna Colella", "Emiliano Fiorillo", "Michela Perrotta", "Nicola Papa", "Vincenzo Di Giacomo"];
+const CANDS_M = ["Pietro Nardi", "Cristian Bruno Gallo", "Tommaso Lella", "Domenico Russo", "Marianna Barattini", "Domenica Santoro", "Veronica Ianniello", "Pietro Menditto", "Tommaso De Angelis", "Elisabetta Santillo", "Assunta Altieri", "Alessandro Altiero", "Annamaria Di Blasio", "Valerio Antonio Orlando", "Maura Argenziano", "Tina Petrillo"];
+const N = 15;
+let currentSez = 1;
+let savedStatus = {};
+let allData = {};
+
+function key(nome){ return nome.replace(/ /g,'_'); }
+
+function buildPrefInputs(){
+  const gv = document.getElementById('prefs-v');
+  const gm = document.getElementById('prefs-m');
+  gv.innerHTML = CANDS_V.map(n=>`<div class="fg"><label style="color:#b45309">${n}</label><input type="number" id="pref_${key(n)}" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#f5a800"></div>`).join('');
+  gm.innerHTML = CANDS_M.map(n=>`<div class="fg"><label style="color:#1d4ed8">${n}</label><input type="number" id="pref_${key(n)}" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#1d6fb8"></div>`).join('');
+}
+
+function buildSidebar(){
+  const sb = document.getElementById('sidebar-btns');
+  sb.innerHTML = '';
+  for(let i=1;i<=N;i++){
+    const btn = document.createElement('button');
+    btn.className = 'sez-btn' + (i===1?' active':'') + (savedStatus[i]?' saved':'');
+    btn.textContent = 'Sezione '+i;
+    btn.onclick = ()=>goToSez(i);
+    btn.id = `sb-${i}`;
+    sb.appendChild(btn);
+  }
+}
+
+function goToSez(i){
+  currentSez = i;
+  document.querySelectorAll('.sez-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`sb-${i}`).classList.add('active');
+  document.getElementById('fp-title').textContent = 'Sezione '+i;
+  loadFormData(i);
+  updateStatus(i);
+}
+
+function updateStatus(i){
+  const el = document.getElementById('fp-st');
+  if(savedStatus[i]){ el.textContent='✓ Salvata'; el.className='st ok'; }
+  else { el.textContent='Non salvata'; el.className='st empty'; }
+}
+
+function val(id){ return parseFloat(document.getElementById(id)?.value||0)||0; }
+function ival(id){ return parseInt(document.getElementById(id)?.value||0)||0; }
+
+function updatePreview(){
+  const tot=val('f-tot'), cont=val('f-cont');
+  const pctScr = tot>0 ? Math.min(cont/tot*100,100) : 0;
+  const vv=ival('f-vv'), vm=ival('f-vm');
+  const tot2=vv+vm;
+  const pv=tot2>0?(vv/tot2*100).toFixed(1)+'%':'—';
+  const pm=tot2>0?(vm/tot2*100).toFixed(1)+'%':'—';
+  document.getElementById('prev-scr').textContent = tot>0 ? pctScr.toFixed(1)+'%' : '—';
+  document.getElementById('prev-v').textContent = pv;
+  document.getElementById('prev-m').textContent = pm;
+  document.getElementById('prev-val').textContent = tot2>0 ? tot2.toLocaleString('it-IT') : '—';
+  const bn=ival('f-bianche')+ival('f-nulle');
+  document.getElementById('prev-bn').textContent = bn>0 ? bn.toLocaleString('it-IT') : '0';
+}
+
+function getFormPayload(){
+  const preferenze={};
+  [...CANDS_V,...CANDS_M].forEach(n=>{
+    const v=parseInt(document.getElementById(`pref_${key(n)}`)?.value||0)||0;
+    if(v>0) preferenze[key(n)]=v;
+  });
+  return {
+    tot: ival('f-tot'),
+    contate: ival('f-cont'),
+    voti_vozza: ival('f-vv'),
+    voti_moscatiello: ival('f-vm'),
+    bianche: ival('f-bianche'),
+    nulle: ival('f-nulle'),
+    preferenze,
+    ts: Date.now()
+  };
+}
+
+function loadFormData(i){
+  const s = allData[`sezione_${i}`];
+  const fields = ['f-tot','f-cont','f-vv','f-vm','f-bianche','f-nulle'];
+  const keys2 = ['tot','contate','voti_vozza','voti_moscatiello','bianche','nulle'];
+  fields.forEach((f,idx)=>{ document.getElementById(f).value = s?.(keys2[idx])||''; });
+  [...CANDS_V,...CANDS_M].forEach(n=>{
+    const el=document.getElementById(`pref_${key(n)}`);
+    if(el) el.value = s?.preferenze?.[key(n)]||'';
+  });
+  updatePreview();
+}
+
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg; t.className='show '+type;
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>{t.className=type;},3000);
+}
+
+async function salva(){
+  const payload=getFormPayload();
+  if(!payload.contate&&!payload.tot){ toast('Inserisci almeno le schede','err'); return; }
+  try{
+    const r=await fetch(`${DB}/elezioni2026/sezione_${currentSez}.json`,{
+      method:'PUT', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    savedStatus[currentSez]=true;
+    allData[`sezione_${currentSez}`]=payload;
+    document.getElementById(`sb-${currentSez}`).classList.add('saved');
+    updateStatus(currentSez);
+    toast(`✓ Sezione ${currentSez} salvata!`);
+  }catch(e){toast('Errore: '+e.message,'err');}
+}
+
+async function resetSez(){
+  if(!confirm(`Resettare sezione ${currentSez}?`)) return;
+  await fetch(`${DB}/elezioni2026/sezione_${currentSez}.json`,{method:'DELETE'});
+  delete allData[`sezione_${currentSez}`];
+  savedStatus[currentSez]=false;
+  document.getElementById(`sb-${currentSez}`).classList.remove('saved');
+  loadFormData(currentSez);
+  updateStatus(currentSez);
+  toast(`Sezione ${currentSez} resettata`);
+}
+
+async function resetTutto(){
+  if(!confirm('Cancellare TUTTI i dati?')) return;
+  await fetch(`${DB}/elezioni2026.json`,{method:'DELETE'});
+  allData={};savedStatus={};
+  document.querySelectorAll('.sez-btn').forEach(b=>b.classList.remove('saved'));
+  loadFormData(currentSez);
+  updateStatus(currentSez);
+  toast('Tutti i dati cancellati');
+}
+
+async function loadExisting(){
+  try{
+    const r=await fetch(`${DB}/elezioni2026.json`);
+    const data=await r.json();
+    if(data){
+      allData=data;
+      for(let i=1;i<=N;i++){
+        if(data[`sezione_${i}`]){
+          savedStatus[i]=true;
+          document.getElementById(`sb-${i}`)?.classList.add('saved');
+        }
+      }
+      loadFormData(currentSez);
+      updateStatus(currentSez);
+    }
+  }catch(e){console.error(e);}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='s'&&(e.ctrlKey||e.metaKey)){ e.preventDefault(); salva(); }
+});
+
+buildPrefInputs();
+buildSidebar();
+loadExisting();
+</script>
+</body>
+</html>
