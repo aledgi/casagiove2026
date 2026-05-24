@@ -132,9 +132,47 @@ main{max-width:1020px;margin:0 auto;padding:20px 14px 60px;}
 .rank-voti{font-size:.8rem;font-weight:700;width:38px;text-align:right;flex-shrink:0;}
 
 .footer{text-align:center;margin-top:24px;font-size:.68rem;color:var(--g3);}
+
+/* AUTH BANNER */
+.auth-banner{background:#1a3a5c;border-bottom:2px solid #f5a800;padding:10px 20px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;}
+.auth-banner p{color:#94a3b8;font-size:.78rem;flex:1;min-width:180px;}
+.auth-banner p strong{color:white;}
+.btn-google{display:inline-flex;align-items:center;gap:8px;background:white;color:#0f2540;font-family:"Inter",sans-serif;font-size:.78rem;font-weight:700;padding:7px 14px;border-radius:8px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:opacity .15s;}
+.btn-google:hover{opacity:.85;}
+.btn-google svg{width:16px;height:16px;flex-shrink:0;}
+.user-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(245,168,0,.12);border:1px solid rgba(245,168,0,.3);padding:5px 12px;border-radius:999px;}
+.user-pill img{width:24px;height:24px;border-radius:50%;object-fit:cover;}
+.user-pill span{font-size:.78rem;color:#f5a800;font-weight:600;}
+.btn-logout{background:none;border:1px solid rgba(255,255,255,.15);color:#94a3b8;font-family:"Inter",sans-serif;font-size:.72rem;padding:4px 10px;border-radius:6px;cursor:pointer;}
+.btn-logout:hover{border-color:rgba(255,255,255,.3);color:white;}
+.auth-count{font-size:.72rem;color:#64748b;margin-left:auto;}
+
 </style>
 </head>
 <body>
+
+<!-- AUTH BANNER -->
+<div class="auth-banner" id="auth-banner">
+  <p><strong>Segui ufficialmente la serata!</strong> Fai login con Google per unirti alla diretta.</p>
+  <button class="btn-google" id="btn-login">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+      <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+      <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#FBBC05"/>
+      <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+    </svg>
+    Accedi con Google
+  </button>
+  <div class="user-area" id="user-area" style="display:none;align-items:center;gap:8px;">
+    <div class="user-pill">
+      <img id="user-img" src="" alt="">
+      <span id="user-name"></span>
+    </div>
+    <button class="btn-logout" id="btn-logout">Esci</button>
+  </div>
+  <span class="auth-count" id="auth-count"></span>
+</div>
+
 
 <div class="hdr">
   <div class="live-pill"><div class="live-dot"></div>LIVE</div>
@@ -208,10 +246,12 @@ main{max-width:1020px;margin:0 auto;padding:20px 14px 60px;}
   <div class="card">
     <div class="sec-label">Riepilogo schede</div>
     <div class="spec-row">
-      <div class="spec-pill"><div class="sp-val" id="tot-schede">—</div><div class="sp-lbl">Totale schede</div></div>
+      <div class="spec-pill"><div class="sp-val" id="pct-affluenza">—</div><div class="sp-lbl">Affluenza</div></div>
+      <div class="spec-pill"><div class="sp-val" id="tot-seggio">—</div><div class="sp-lbl">Al seggio</div></div>
+      <div class="spec-pill"><div class="sp-val" id="tot-schede">—</div><div class="sp-lbl">Schede scrutinate</div></div>
       <div class="spec-pill"><div class="sp-val" id="tot-valide">—</div><div class="sp-lbl">Voti validi</div></div>
-      <div class="spec-pill"><div class="sp-val" id="tot-bianche">—</div><div class="sp-lbl">Schede bianche</div></div>
-      <div class="spec-pill"><div class="sp-val" id="tot-nulle">—</div><div class="sp-lbl">Schede nulle</div></div>
+      <div class="spec-pill"><div class="sp-val" id="tot-bianche">—</div><div class="sp-lbl">Bianche</div></div>
+      <div class="spec-pill"><div class="sp-val" id="tot-nulle">—</div><div class="sp-lbl">Nulle</div></div>
     </div>
   </div>
 
@@ -243,6 +283,9 @@ main{max-width:1020px;margin:0 auto;padding:20px 14px 60px;}
 <script>
 const DB = "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app";
 const N = 15;
+const AVENTI_DIRITTO = {"1": 766, "2": 649, "3": 804, "4": 737, "5": 913, "6": 689, "7": 674, "8": 653, "9": 601, "10": 662, "11": 652, "12": 748, "13": 858, "14": 904, "15": 943};
+const TOTALE_AVENTI = 11253;
+
 const CANDS = [{"nome": "Valerio Cappio", "lista": "v"}, {"nome": "Anna Altavilla", "lista": "v"}, {"nome": "Gennaro Caiazza", "lista": "v"}, {"nome": "Elpidio Scialla", "lista": "v"}, {"nome": "Maria Rosaria Tavano", "lista": "v"}, {"nome": "Alessandro Antonelli", "lista": "v"}, {"nome": "Carlo Senatore", "lista": "v"}, {"nome": "Armando Celentano", "lista": "v"}, {"nome": "Giovanna Ferrante", "lista": "v"}, {"nome": "Daniela Rettore", "lista": "v"}, {"nome": "Anna Colella", "lista": "v"}, {"nome": "Emiliano Fiorillo", "lista": "v"}, {"nome": "Michela Perrotta", "lista": "v"}, {"nome": "Nicola Papa", "lista": "v"}, {"nome": "Vincenzo Di Giacomo", "lista": "v"}, {"nome": "Pietro Nardi", "lista": "m"}, {"nome": "Cristian Bruno Gallo", "lista": "m"}, {"nome": "Tommaso Lella", "lista": "m"}, {"nome": "Domenico Russo", "lista": "m"}, {"nome": "Marianna Barattini", "lista": "m"}, {"nome": "Domenica Santoro", "lista": "m"}, {"nome": "Veronica Ianniello", "lista": "m"}, {"nome": "Pietro Menditto", "lista": "m"}, {"nome": "Tommaso De Angelis", "lista": "m"}, {"nome": "Elisabetta Santillo", "lista": "m"}, {"nome": "Assunta Altieri", "lista": "m"}, {"nome": "Alessandro Altiero", "lista": "m"}, {"nome": "Annamaria Di Blasio", "lista": "m"}, {"nome": "Valerio Antonio Orlando", "lista": "m"}, {"nome": "Maura Argenziano", "lista": "m"}, {"nome": "Tina Petrillo", "lista": "m"}];
 
 function fmt(n){
@@ -272,8 +315,10 @@ function renderSez(i,s){
   const badge=document.getElementById(`b-${i}`);
   const body=document.getElementById(`sb-${i}`);
   if(!s){card.className='sez';badge.textContent='In attesa';badge.className='badge wait';body.innerHTML='<div class="sez-empty">Nessun dato</div>';return;}
-  const tot=parseInt(s.tot||0), cont=parseInt(s.contate||0);
-  const pctScr=tot>0?Math.min(cont/tot*100,100):0;
+  const aventi=AVENTI_DIRITTO[i]||0;
+  const seggio=parseInt(s.seggio||0), cont=parseInt(s.contate||0);
+  const pctAff=aventi>0?Math.min(seggio/aventi*100,100):0;
+  const pctScr=seggio>0?Math.min(cont/seggio*100,100):0;
   const vv=parseInt(s.voti_vozza||0),vm=parseInt(s.voti_moscatiello||0);
   const bianche=parseInt(s.bianche||0),nulle=parseInt(s.nulle||0);
   const [pv,pm]=pct(vv,vm);
@@ -308,7 +353,8 @@ function renderSez(i,s){
       <div class="sez-abs">${fmt(vm)}</div>
     </div>
     <div class="sez-extra">
-      <span>Schede: ${fmt(cont)}/${fmt(tot)}</span>
+      <span>Aff: ${pctAff.toFixed(1)}%</span>
+      <span>Scr: ${pctScr.toFixed(1)}%</span>
       <span>Bianche: ${fmt(bianche)}</span>
       <span>Nulle: ${fmt(nulle)}</span>
     </div>
@@ -346,13 +392,13 @@ function renderRank(data){
 }
 
 function updateUI(data){
-  let totSchede=0,totCont=0,totV=0,totM=0,totBianche=0,totNulle=0,sezN=0;
+  let totSeggio=0,totCont=0,totV=0,totM=0,totBianche=0,totNulle=0,sezN=0;
   for(let i=1;i<=N;i++){
     const s=data[`sezione_${i}`]||null;
     renderSez(i,s);
     if(s){
       sezN++;
-      totSchede+=parseInt(s.tot||0);
+      totSeggio+=parseInt(s.seggio||0);
       totCont+=parseInt(s.contate||0);
       totV+=parseInt(s.voti_vozza||0);
       totM+=parseInt(s.voti_moscatiello||0);
@@ -360,10 +406,11 @@ function updateUI(data){
       totNulle+=parseInt(s.nulle||0);
     }
   }
-  const pctScr=totSchede>0?Math.min(totCont/totSchede*100,100):0;
+  const pctAffG=TOTALE_AVENTI>0?Math.min(totSeggio/TOTALE_AVENTI*100,100):0;
+  const pctScr=totSeggio>0?Math.min(totCont/totSeggio*100,100):0;
   document.getElementById('pct-scr').textContent=pctScr.toFixed(1)+'%';
   document.getElementById('bar-scr').style.width=pctScr.toFixed(1)+'%';
-  document.getElementById('scr-detail').textContent=`${sezN} di 15 sezioni · ${fmt(totCont)} / ${fmt(totSchede)} schede`;
+  document.getElementById('scr-detail').textContent=`${sezN} di 15 sezioni · ${fmt(totCont)} schede scrutinate · affluenza ${pctAffG.toFixed(1)}%`;
   document.getElementById('sez-cnt').textContent=`${sezN}/15`;
 
   const totValide=totV+totM;
@@ -383,7 +430,11 @@ function updateUI(data){
   document.getElementById('cm').classList.toggle('leading',pm>pv&&totValide>0);
 
   const totSchedeTot=totValide+totBianche+totNulle;
-  document.getElementById('tot-schede').textContent=fmt(totCont)||'—';
+  document.getElementById('pct-affluenza').textContent=totSeggio>0?pctAffG.toFixed(1)+'%':'—';
+  document.getElementById('tot-seggio').textContent=fmt(totSeggio)||'—';
+  const pctAffTot = TOTALE_AVENTI>0 ? Math.min(totSchede/TOTALE_AVENTI*100,100).toFixed(1)+'%' : '—';
+  document.getElementById('tot-schede').textContent=fmt(totSchede)||'—';
+  document.getElementById('tot-affluenza').textContent=pctAffTot;
   document.getElementById('tot-valide').textContent=fmt(totValide)||'—';
   document.getElementById('tot-bianche').textContent=fmt(totBianche)||'—';
   document.getElementById('tot-nulle').textContent=fmt(totNulle)||'—';
@@ -415,5 +466,81 @@ initGrid();
 fetchData();
 setInterval(fetchData,10000);
 </script>
+
+<!-- Firebase Auth -->
+<script type="module">
+  import { initializeApp, getApps } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getDatabase, ref, set, get, child }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyPLACEHOLDER",
+    authDomain: "casagiove2026.firebaseapp.com",
+    databaseURL: "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "casagiove2026",
+    storageBucket: "casagiove2026.appspot.com",
+    messagingSenderId: "PLACEHOLDER",
+    appId: "PLACEHOLDER"
+  };
+
+  const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getDatabase(app);
+  const provider = new GoogleAuthProvider();
+
+  const banner = document.getElementById('auth-banner');
+  const loginBtn = document.getElementById('btn-login');
+  const userArea = document.getElementById('user-area');
+  const userImg = document.getElementById('user-img');
+  const userName = document.getElementById('user-name');
+  const logoutBtn = document.getElementById('btn-logout');
+  const authCount = document.getElementById('auth-count');
+
+  async function updateCount() {
+    try {
+      const snap = await get(child(ref(db), 'followers'));
+      const data = snap.val();
+      const count = data ? Object.keys(data).length : 0;
+      if (authCount) authCount.textContent = count > 0 ? count + ' persone stanno seguendo' : '';
+    } catch(e) {}
+  }
+
+  onAuthStateChanged(auth, async (user) => {
+    if (user) {
+      loginBtn.style.display = 'none';
+      userArea.style.display = 'inline-flex';
+      userImg.src = user.photoURL || '';
+      userImg.style.display = user.photoURL ? 'block' : 'none';
+      userName.textContent = user.displayName || user.email;
+      // Salva su Firebase
+      await set(ref(db, 'followers/' + user.uid), {
+        nome: user.displayName || '',
+        email: user.email || '',
+        foto: user.photoURL || '',
+        ts: Date.now()
+      });
+      updateCount();
+    } else {
+      loginBtn.style.display = 'inline-flex';
+      userArea.style.display = 'none';
+      updateCount();
+    }
+  });
+
+  loginBtn.addEventListener('click', async () => {
+    try {
+      await signInWithPopup(auth, provider);
+    } catch(e) {
+      console.error('Login error:', e);
+    }
+  });
+
+  logoutBtn.addEventListener('click', () => signOut(auth));
+
+  updateCount();
+</script>
+
 </body>
 </html>
