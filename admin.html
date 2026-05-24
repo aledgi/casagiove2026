@@ -82,6 +82,9 @@ main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
 #toast.show{transform:translateY(0);opacity:1;}
 #toast.ok{background:var(--verde);}
 #toast.err{background:var(--rosso);}
+.aventi-box{display:flex;align-items:center;justify-content:space-between;background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:8px 14px;margin-bottom:10px;}
+.aventi-lbl{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0369a1;}
+.aventi-val{font-size:1.3rem;font-weight:800;color:#0369a1;}
 </style>
 </head>
 <body>
@@ -121,6 +124,7 @@ main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
 
       <!-- PREVIEW -->
       <div class="preview">
+        <div class="prev-item"><div class="prev-lbl">Affluenza</div><div class="prev-val n" id="prev-aff">—</div></div>
         <div class="prev-item"><div class="prev-lbl">% Scrutinio</div><div class="prev-val n" id="prev-scr">—</div></div>
         <div class="prev-item"><div class="prev-lbl">Vozza %</div><div class="prev-val v" id="prev-v">—</div></div>
         <div class="prev-item"><div class="prev-lbl">Moscatiello %</div><div class="prev-val m" id="prev-m">—</div></div>
@@ -132,8 +136,18 @@ main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
       <div class="section-group">
         <div class="sg-title scr">&#128203; Schede</div>
         <div class="fg-grid">
-          <div class="fg"><label style="color:var(--g4)">Totale schede sezione</label><input type="number" id="f-tot" min="0" step="1" placeholder="es. 520" oninput="updatePreview()" style="--focus-color:#64748b"></div>
-          <div class="fg"><label style="color:var(--g4)">Schede contate</label><input type="number" id="f-cont" min="0" step="1" placeholder="es. 520" oninput="updatePreview()" style="--focus-color:#64748b"></div>
+          <div class="fg">
+            <label style="color:var(--g4)">Aventi diritto</label>
+            <input type="number" id="f-aventi" readonly style="--focus-color:#64748b;background:#e2e8f0;color:#64748b;cursor:not-allowed;">
+          </div>
+          <div class="fg">
+            <label style="color:var(--g4)">Elettori al seggio</label>
+            <input type="number" id="f-seggio" min="0" step="1" placeholder="es. 480" oninput="updatePreview()" style="--focus-color:#64748b">
+          </div>
+          <div class="fg">
+            <label style="color:var(--g4)">Schede scrutinate</label>
+            <input type="number" id="f-cont" min="0" step="1" placeholder="es. 478" oninput="updatePreview()" style="--focus-color:#64748b">
+          </div>
           <div class="fg"><label style="color:#dc2626">Schede bianche</label><input type="number" id="f-bianche" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
           <div class="fg"><label style="color:#dc2626">Schede nulle</label><input type="number" id="f-nulle" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
         </div>
@@ -177,9 +191,12 @@ main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
 
 <script>
 const DB = "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app";
-const CANDS_V = ["Valerio Cappio", "Anna Altavilla", "Gennaro Caiazza", "Elpidio Scialla", "Maria Rosaria Tavano", "Alessandro Antonelli", "Carlo Senatore", "Armando Celentano", "Giovanna Ferrante", "Daniela Rettore", "Anna Colella", "Emiliano Fiorillo", "Michela Perrotta", "Nicola Papa", "Vincenzo Di Giacomo"];
+const CANDS_V = ["Valerio Cappio", "Anna Altavilla", "Gennaro Caiazza", "Elpidio Scialla", "Maria Rosaria Tavano", "Alessandro Antonelli", "Carlo Senatore", "Armando Celentano", "Giovanna Ferrante", "Daniela Rettore", "Anna Colella", "Emiliano Fiorillo", "Michela Perrotta", "Nicola Papa", "Vincenzo Di Giacomo","Alfredo Tescione"];
 const CANDS_M = ["Pietro Nardi", "Cristian Bruno Gallo", "Tommaso Lella", "Domenico Russo", "Marianna Barattini", "Domenica Santoro", "Veronica Ianniello", "Pietro Menditto", "Tommaso De Angelis", "Elisabetta Santillo", "Assunta Altieri", "Alessandro Altiero", "Annamaria Di Blasio", "Valerio Antonio Orlando", "Maura Argenziano", "Tina Petrillo"];
 const N = 15;
+const AVENTI_DIRITTO = {"1": 766, "2": 649, "3": 804, "4": 737, "5": 913, "6": 689, "7": 674, "8": 653, "9": 601, "10": 662, "11": 652, "12": 748, "13": 858, "14": 904, "15": 943};
+const AVENTI_DIRITTO = {"1": 766, "2": 649, "3": 804, "4": 737, "5": 913, "6": 689, "7": 674, "8": 653, "9": 601, "10": 662, "11": 652, "12": 748, "13": 858, "14": 904, "15": 943};
+
 let currentSez = 1;
 let savedStatus = {};
 let allData = {};
@@ -211,6 +228,8 @@ function goToSez(i){
   document.querySelectorAll('.sez-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`sb-${i}`).classList.add('active');
   document.getElementById('fp-title').textContent = 'Sezione '+i;
+  const avEl = document.getElementById('f-aventi');
+  if(avEl) avEl.value = AVENTI_DIRITTO[i] || '';
   loadFormData(i);
   updateStatus(i);
 }
@@ -225,13 +244,17 @@ function val(id){ return parseFloat(document.getElementById(id)?.value||0)||0; }
 function ival(id){ return parseInt(document.getElementById(id)?.value||0)||0; }
 
 function updatePreview(){
-  const tot=val('f-tot'), cont=val('f-cont');
-  const pctScr = tot>0 ? Math.min(cont/tot*100,100) : 0;
+  const aventi = AVENTI_DIRITTO[currentSez] || 0;
+  const seggio = ival('f-seggio');
+  const cont = ival('f-cont');
+  const pctAff = aventi>0 ? Math.min(seggio/aventi*100,100) : 0;
+  const pctScr = seggio>0 ? Math.min(cont/seggio*100,100) : 0;
   const vv=ival('f-vv'), vm=ival('f-vm');
   const tot2=vv+vm;
   const pv=tot2>0?(vv/tot2*100).toFixed(1)+'%':'—';
   const pm=tot2>0?(vm/tot2*100).toFixed(1)+'%':'—';
-  document.getElementById('prev-scr').textContent = tot>0 ? pctScr.toFixed(1)+'%' : '—';
+  document.getElementById('prev-aff').textContent = seggio>0 ? pctAff.toFixed(1)+'%' : '—';
+  document.getElementById('prev-scr').textContent = cont>0 ? pctScr.toFixed(1)+'%' : '—';
   document.getElementById('prev-v').textContent = pv;
   document.getElementById('prev-m').textContent = pm;
   document.getElementById('prev-val').textContent = tot2>0 ? tot2.toLocaleString('it-IT') : '—';
@@ -246,7 +269,8 @@ function getFormPayload(){
     if(v>0) preferenze[key(n)]=v;
   });
   return {
-    tot: ival('f-tot'),
+    aventi_diritto: AVENTI_DIRITTO[currentSez]||0,
+    elettori_seggio: ival('f-tot'),
     contate: ival('f-cont'),
     voti_vozza: ival('f-vv'),
     voti_moscatiello: ival('f-vm'),
@@ -259,8 +283,11 @@ function getFormPayload(){
 
 function loadFormData(i){
   const s = allData[`sezione_${i}`];
-  const fields = ['f-tot','f-cont','f-vv','f-vm','f-bianche','f-nulle'];
-  const keys2 = ['tot','contate','voti_vozza','voti_moscatiello','bianche','nulle'];
+  // setta campo aventi (readonly)
+  const avEl = document.getElementById('f-aventi');
+  if(avEl) avEl.value = AVENTI_DIRITTO[i] || '';
+  const fields = ['f-seggio','f-cont','f-vv','f-vm','f-bianche','f-nulle'];
+  const keys2 = ['seggio','contate','voti_vozza','voti_moscatiello','bianche','nulle'];
   fields.forEach((f,idx)=>{ document.getElementById(f).value = s?.(keys2[idx])||''; });
   [...CANDS_V,...CANDS_M].forEach(n=>{
     const el=document.getElementById(`pref_${key(n)}`);
@@ -338,6 +365,7 @@ document.addEventListener('keydown',e=>{
 
 buildPrefInputs();
 buildSidebar();
+document.getElementById('f-aventi-display').textContent = (AVENTI_DIRITTO[1]||'—').toLocaleString('it-IT');
 loadExisting();
 </script>
 </body>
