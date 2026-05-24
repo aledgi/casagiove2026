@@ -2,179 +2,180 @@
 <html lang="it">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>Admin – Casagiove 2026</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 *{margin:0;padding:0;box-sizing:border-box;}
 :root{
-  --blu:#0f2540;--giallo:#f5a800;--azzurro:#1d6fb8;
+  --blu:#0c1e35;--blu2:#152d48;--blu3:#1e3f66;
+  --oro:#f5a800;--az:#1d6fb8;
   --verde:#16a34a;--rosso:#dc2626;
-  --g1:#f8fafc;--g2:#e2e8f0;--g3:#94a3b8;--g4:#64748b;
-  --testo:#0f172a;
+  --g1:#f8fafc;--g2:#e8edf3;--g3:#94a3b8;--g4:#64748b;--g5:#334155;
+  --testo:#0f172a;--bianco:#fff;
 }
-body{font-family:"Inter",sans-serif;background:#f1f5f9;color:var(--testo);}
-.hdr{background:var(--blu);padding:0 20px;display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:12px;flex-wrap:wrap;}
-.hdr h1{color:white;font-size:.9rem;font-weight:700;}
-.hdr p{color:#94a3b8;font-size:.68rem;}
-.admin-badge{background:rgba(239,68,68,.2);color:#fca5a5;border:1px solid rgba(239,68,68,.3);padding:3px 10px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.07em;}
+body{font-family:"Inter",sans-serif;background:#eef2f7;color:var(--testo);}
 
-main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
+.hdr{background:linear-gradient(135deg,var(--blu),var(--blu3));padding:0 24px;display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:12px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+.hdr-text h1{color:white;font-size:.92rem;font-weight:800;}
+.hdr-text p{color:#7a9cbf;font-size:.68rem;margin-top:2px;}
+.admin-badge{background:rgba(220,38,38,.2);color:#fca5a5;border:1px solid rgba(220,38,38,.3);padding:4px 12px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.08em;}
+
+main{max-width:1120px;margin:0 auto;padding:20px 14px 60px;}
 .topbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
-.topbar p{margin-left:auto;font-size:.7rem;color:var(--g3);}
-.btn{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;padding:7px 14px;border-radius:7px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:opacity .15s,transform .1s;}
-.btn:hover{opacity:.85;transform:translateY(-1px);}
-.btn-y{background:var(--giallo);color:#0f2540;}
-.btn-r{background:var(--rosso);color:white;}
-.btn-b{background:var(--azzurro);color:white;}
-.btn-ghost{background:white;color:var(--testo);border:1px solid var(--g2);}
+.topbar-right{margin-left:auto;font-size:.7rem;color:var(--g3);}
 
-.info{background:#fffbeb;border:1px solid #fde68a;border-radius:9px;padding:10px 14px;margin-bottom:14px;font-size:.76rem;color:#92400e;line-height:1.65;}
+.btn{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:opacity .15s,transform .1s;}
+.btn:hover{opacity:.85;transform:translateY(-1px);}
+.btn-y{background:var(--oro);color:#0c1e35;}
+.btn-r{background:var(--rosso);color:white;}
+.btn-b{background:var(--az);color:white;}
+.btn-ghost{background:var(--bianco);color:var(--testo);border:1px solid var(--g2);}
+
+.info{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:.76rem;color:#92400e;line-height:1.7;}
 .info strong{color:#78350f;}
 
-/* LAYOUT A DUE COLONNE: sidebar sezioni + form */
-.layout{display:grid;grid-template-columns:140px 1fr;gap:14px;align-items:start;}
-@media(max-width:640px){.layout{grid-template-columns:1fr;}}
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:148px 1fr;gap:14px;align-items:start;}
+@media(max-width:660px){.layout{grid-template-columns:1fr;}}
 
 /* SIDEBAR */
-.sidebar{background:white;border-radius:12px;border:1px solid var(--g2);padding:10px;position:sticky;top:10px;}
-.sidebar-title{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--g4);margin-bottom:8px;padding:0 4px;}
-.sez-btn{display:block;width:100%;text-align:left;padding:7px 10px;border-radius:7px;border:none;background:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.78rem;font-weight:500;color:var(--g5);transition:background .15s;margin-bottom:2px;}
-.sez-btn:hover{background:var(--g1);}
-.sez-btn.active{background:#fef9ec;color:#92400e;font-weight:700;}
-.sez-btn.saved{color:var(--verde);}
-.sez-btn.saved.active{background:#f0fdf4;color:var(--verde);}
+.sidebar{background:var(--bianco);border-radius:14px;border:1px solid var(--g2);padding:10px;position:sticky;top:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.sb-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g3);margin-bottom:8px;padding:0 4px;}
+.sb-btn{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;padding:7px 10px;border-radius:8px;border:none;background:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.76rem;font-weight:500;color:var(--g5);transition:background .15s;margin-bottom:2px;}
+.sb-btn:hover{background:var(--g1);}
+.sb-btn.active{background:#fef9ec;color:#92400e;font-weight:700;}
+.sb-btn.saved .sb-tick{display:inline-block;}
+.sb-btn.saved{color:var(--verde);}
+.sb-btn.saved.active{background:#f0fdf4;}
+.sb-tick{display:none;font-size:.65rem;color:var(--verde);}
 
 /* FORM */
-.form-panel{background:white;border-radius:12px;border:1px solid var(--g2);padding:18px 20px;}
-.fp-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
-.fp-title{font-size:1rem;font-weight:800;}
-.st{font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:5px;}
+.fp{background:var(--bianco);border-radius:14px;border:1px solid var(--g2);padding:20px 22px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.fp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.fp-title{font-size:1.05rem;font-weight:800;color:var(--testo);}
+.st{font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:6px;}
 .st.empty{background:var(--g1);color:var(--g3);}
 .st.ok{background:#dcfce7;color:#166534;}
 
+/* AVENTI */
+.aventi-box{display:flex;align-items:center;justify-content:space-between;background:#e0f2fe;border:1px solid #bae6fd;border-radius:9px;padding:9px 16px;margin-bottom:14px;}
+.av-lbl{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#0369a1;}
+.av-val{font-size:1.4rem;font-weight:900;color:#0369a1;}
+.av-sub{font-size:.65rem;color:#0369a1;opacity:.7;}
+
 /* PREVIEW */
-.preview{display:flex;gap:8px;flex-wrap:wrap;background:var(--g1);border-radius:9px;padding:10px 14px;margin-bottom:14px;}
-.prev-item{flex:1;min-width:80px;text-align:center;}
-.prev-lbl{font-size:.6rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g3);}
-.prev-val{font-size:1.15rem;font-weight:800;margin-top:2px;}
-.prev-val.v{color:var(--giallo);}
-.prev-val.m{color:var(--azzurro);}
-.prev-val.n{color:var(--g5);}
+.preview{display:flex;gap:8px;flex-wrap:wrap;background:var(--g1);border-radius:10px;padding:11px 14px;margin-bottom:16px;border:1px solid var(--g2);}
+.pv-item{flex:1;min-width:80px;text-align:center;}
+.pv-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g3);}
+.pv-val{font-size:1.1rem;font-weight:800;margin-top:3px;}
+.pv-val.v{color:var(--oro);}
+.pv-val.m{color:var(--az);}
+.pv-val.n{color:var(--g5);}
 
-/* SEZIONE FORM */
-.section-group{margin-bottom:16px;}
-.sg-title{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;margin-bottom:8px;padding-bottom:6px;border-bottom:2px solid;display:flex;align-items:center;gap:6px;}
+/* SEZIONI FORM */
+.sg{margin-bottom:16px;}
+.sg-title{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;padding-bottom:7px;border-bottom:2px solid;display:flex;align-items:center;gap:6px;}
 .sg-title.scr{color:var(--g4);border-color:var(--g2);}
-.sg-title.sv{color:#b45309;border-color:#fde68a;}
-.sg-title.sm{color:#1d4ed8;border-color:#bfdbfe;}
-.fg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;}
+.sg-title.sv{color:#92400e;border-color:#fde68a;}
+.sg-title.sm{color:#1e40af;border-color:#bfdbfe;}
+.fg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;}
 .fg{}
-.fg label{display:block;font-size:.62rem;font-weight:600;letter-spacing:.07em;text-transform:uppercase;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.fg input{width:100%;background:var(--g1);border:1px solid var(--g2);border-radius:7px;padding:7px 10px;color:var(--testo);font-family:"Inter",sans-serif;font-size:.9rem;font-weight:700;transition:border-color .2s;-moz-appearance:textfield;}
+.fg label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fg input{width:100%;background:var(--g1);border:1px solid var(--g2);border-radius:7px;padding:8px 11px;color:var(--testo);font-family:"Inter",sans-serif;font-size:.92rem;font-weight:700;transition:border-color .2s,background .2s;-moz-appearance:textfield;}
 .fg input::-webkit-inner-spin-button,.fg input::-webkit-outer-spin-button{-webkit-appearance:none;}
-.fg input:focus{outline:none;border-color:var(--focus-color,var(--giallo));background:white;}
+.fg input:focus{outline:none;border-color:var(--fc,var(--oro));background:var(--bianco);}
 
-.actions{display:flex;gap:8px;margin-top:16px;}
-.actions .btn{flex:1;justify-content:center;}
+.actions{display:flex;gap:8px;margin-top:18px;}
+.actions .btn{flex:1;justify-content:center;padding:10px;}
 
-#toast{position:fixed;bottom:16px;right:16px;padding:10px 18px;border-radius:8px;font-size:.8rem;font-weight:600;color:white;transform:translateY(60px);opacity:0;transition:all .3s;z-index:9999;}
+#toast{position:fixed;bottom:18px;right:18px;padding:11px 20px;border-radius:10px;font-size:.82rem;font-weight:600;color:white;transform:translateY(60px);opacity:0;transition:all .3s;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);}
 #toast.show{transform:translateY(0);opacity:1;}
 #toast.ok{background:var(--verde);}
 #toast.err{background:var(--rosso);}
-.aventi-box{display:flex;align-items:center;justify-content:space-between;background:#e0f2fe;border:1px solid #bae6fd;border-radius:8px;padding:8px 14px;margin-bottom:10px;}
-.aventi-lbl{font-size:.7rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#0369a1;}
-.aventi-val{font-size:1.3rem;font-weight:800;color:#0369a1;}
 </style>
 </head>
 <body>
 
 <div class="hdr">
-  <div>
-    <h1>Admin – Inserimento Risultati Casagiove 2026</h1>
-    <p>Percentuali calcolate automaticamente · 15 sezioni · 32 candidati</p>
+  <div class="hdr-text">
+    <h1>Pannello Admin – Inserimento Risultati</h1>
+    <p>Elezioni Comunali Casagiove 2026 · % calcolate automaticamente · Ctrl+S per salvare</p>
   </div>
   <div class="admin-badge">RISERVATO</div>
 </div>
 
 <main>
   <div class="info">
-    <strong>Come usare:</strong> Seleziona una sezione dalla barra a sinistra. Inserisci <strong>schede totali</strong>, <strong>schede contate</strong>, i <strong>voti lista</strong> per i due sindaci, le <strong>schede bianche e nulle</strong>, e le <strong>preferenze</strong> dei candidati. Le % vengono calcolate in anteprima automaticamente. Premi <strong>Ctrl+S</strong> per salvare la sezione attiva.
+    <strong>Istruzioni:</strong> Seleziona la sezione dalla barra sinistra. Inserisci <strong>elettori al seggio</strong>, <strong>schede scrutinate</strong>, <strong>voti Vozza</strong>, <strong>voti Moscatiello</strong>, <strong>bianche</strong>, <strong>nulle</strong> e le <strong>preferenze</strong> di ogni candidato. L'anteprima si aggiorna in tempo reale. Premi <strong>Ctrl+S</strong> per salvare.
   </div>
-
   <div class="topbar">
-    <button class="btn btn-b" onclick="window.open('risultati.html','_blank')">&#128065; Risultati live</button>
+    <button class="btn btn-b" onclick="window.open('risultati.html','_blank')">&#128065; Vedi risultati live</button>
     <button class="btn btn-r" onclick="resetTutto()">&#128465; Reset completo</button>
-    <p>Dati visibili online entro 10 secondi</p>
+    <span class="topbar-right">Dati visibili online entro 10 secondi</span>
   </div>
 
   <div class="layout">
-    <!-- SIDEBAR -->
     <div class="sidebar">
-      <div class="sidebar-title">Sezioni</div>
-      <div id="sidebar-btns"></div>
+      <div class="sb-title">Sezioni</div>
+      <div id="sb-list"></div>
     </div>
 
-    <!-- FORM -->
-    <div class="form-panel" id="form-panel">
-      <div class="fp-top">
+    <div class="fp">
+      <div class="fp-head">
         <div class="fp-title" id="fp-title">Sezione 1</div>
         <div class="st empty" id="fp-st">Non salvata</div>
       </div>
 
-      <!-- PREVIEW -->
+      <div class="aventi-box">
+        <div>
+          <div class="av-lbl">Aventi diritto al voto</div>
+          <div class="av-sub">Dato fisso per questa sezione</div>
+        </div>
+        <div class="av-val" id="av-val">—</div>
+      </div>
+
       <div class="preview">
-        <div class="prev-item"><div class="prev-lbl">Affluenza</div><div class="prev-val n" id="prev-aff">—</div></div>
-        <div class="prev-item"><div class="prev-lbl">% Scrutinio</div><div class="prev-val n" id="prev-scr">—</div></div>
-        <div class="prev-item"><div class="prev-lbl">Vozza %</div><div class="prev-val v" id="prev-v">—</div></div>
-        <div class="prev-item"><div class="prev-lbl">Moscatiello %</div><div class="prev-val m" id="prev-m">—</div></div>
-        <div class="prev-item"><div class="prev-lbl">Voti validi</div><div class="prev-val n" id="prev-val">—</div></div>
-        <div class="prev-item"><div class="prev-lbl">Bianche+Nulle</div><div class="prev-val n" id="prev-bn">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Affluenza</div><div class="pv-val n" id="pv-aff">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Scrutinate %</div><div class="pv-val n" id="pv-scr">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Vozza %</div><div class="pv-val v" id="pv-v">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Moscatiello %</div><div class="pv-val m" id="pv-m">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Voti validi</div><div class="pv-val n" id="pv-tot">—</div></div>
       </div>
 
       <!-- SCHEDE -->
-      <div class="section-group">
-        <div class="sg-title scr">&#128203; Schede</div>
+      <div class="sg">
+        <div class="sg-title scr">&#128203; Dati schede</div>
         <div class="fg-grid">
-          <div class="fg">
-            <label style="color:var(--g4)">Aventi diritto</label>
-            <input type="number" id="f-aventi" readonly style="--focus-color:#64748b;background:#e2e8f0;color:#64748b;cursor:not-allowed;">
-          </div>
-          <div class="fg">
-            <label style="color:var(--g4)">Elettori al seggio</label>
-            <input type="number" id="f-seggio" min="0" step="1" placeholder="es. 480" oninput="updatePreview()" style="--focus-color:#64748b">
-          </div>
-          <div class="fg">
-            <label style="color:var(--g4)">Schede scrutinate</label>
-            <input type="number" id="f-cont" min="0" step="1" placeholder="es. 478" oninput="updatePreview()" style="--focus-color:#64748b">
-          </div>
-          <div class="fg"><label style="color:#dc2626">Schede bianche</label><input type="number" id="f-bianche" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
-          <div class="fg"><label style="color:#dc2626">Schede nulle</label><input type="number" id="f-nulle" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#dc2626"></div>
+          <div class="fg"><label style="color:var(--g4);--fc:#64748b">Elettori al seggio</label><input type="number" id="f-seg" min="0" step="1" placeholder="es. 480" oninput="updPrev()"></div>
+          <div class="fg"><label style="color:var(--g4);--fc:#64748b">Schede scrutinate</label><input type="number" id="f-scr" min="0" step="1" placeholder="es. 480" oninput="updPrev()"></div>
+          <div class="fg"><label style="color:#dc2626">Schede bianche</label><input type="number" id="f-bi" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#dc2626"></div>
+          <div class="fg"><label style="color:#dc2626">Schede nulle</label><input type="number" id="f-nu" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#dc2626"></div>
         </div>
       </div>
 
       <!-- VOTI SINDACI -->
-      <div class="section-group">
+      <div class="sg">
         <div class="sg-title sv">&#9632; Voti lista Vozza</div>
         <div class="fg-grid">
-          <div class="fg"><label style="color:#b45309">Voti Vozza</label><input type="number" id="f-vv" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#f5a800"></div>
+          <div class="fg"><label style="color:#92400e">Voti Vozza</label><input type="number" id="f-vv" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#f5a800"></div>
         </div>
       </div>
-      <div class="section-group">
+      <div class="sg">
         <div class="sg-title sm">&#9632; Voti lista Moscatiello</div>
         <div class="fg-grid">
-          <div class="fg"><label style="color:#1d4ed8">Voti Moscatiello</label><input type="number" id="f-vm" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#1d6fb8"></div>
+          <div class="fg"><label style="color:#1e40af">Voti Moscatiello</label><input type="number" id="f-vm" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#1d6fb8"></div>
         </div>
       </div>
 
       <!-- PREFERENZE VOZZA -->
-      <div class="section-group">
+      <div class="sg">
         <div class="sg-title sv">&#9632; Preferenze candidati – Lista Vozza</div>
         <div class="fg-grid" id="prefs-v"></div>
       </div>
 
       <!-- PREFERENZE MOSCATIELLO -->
-      <div class="section-group">
+      <div class="sg">
         <div class="sg-title sm">&#9632; Preferenze candidati – Lista Moscatiello</div>
         <div class="fg-grid" id="prefs-m"></div>
       </div>
@@ -191,153 +192,132 @@ main{max-width:1100px;margin:0 auto;padding:18px 14px 60px;}
 
 <script>
 const DB = "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app";
-const CANDS_V = ["Valerio Cappio", "Anna Altavilla", "Gennaro Caiazza", "Elpidio Scialla", "Maria Rosaria Tavano", "Alessandro Antonelli", "Carlo Senatore", "Armando Celentano", "Giovanna Ferrante", "Daniela Rettore", "Anna Colella", "Emiliano Fiorillo", "Michela Perrotta", "Nicola Papa", "Vincenzo Di Giacomo","Alfredo Tescione"];
-const CANDS_M = ["Pietro Nardi", "Cristian Bruno Gallo", "Tommaso Lella", "Domenico Russo", "Marianna Barattini", "Domenica Santoro", "Veronica Ianniello", "Pietro Menditto", "Tommaso De Angelis", "Elisabetta Santillo", "Assunta Altieri", "Alessandro Altiero", "Annamaria Di Blasio", "Valerio Antonio Orlando", "Maura Argenziano", "Tina Petrillo"];
-const N = 15;
-const AVENTI_DIRITTO = {"1": 766, "2": 649, "3": 804, "4": 737, "5": 913, "6": 689, "7": 674, "8": 653, "9": 601, "10": 662, "11": 652, "12": 748, "13": 858, "14": 904, "15": 943};
-const AVENTI_DIRITTO = {"1": 766, "2": 649, "3": 804, "4": 737, "5": 913, "6": 689, "7": 674, "8": 653, "9": 601, "10": 662, "11": 652, "12": 748, "13": 858, "14": 904, "15": 943};
+const N  = 15;
+const AVENTI = {1:766,2:649,3:804,4:737,5:913,6:689,7:674,8:653,9:601,10:662,11:652,12:748,13:858,14:904,15:943};
+const CV = ["Valerio Cappio","Anna Altavilla","Gennaro Caiazza","Elpidio Scialla","Maria Rosaria Tavano","Alessandro Antonelli","Carlo Senatore","Armando Celentano","Giovanna Ferrante","Daniela Rettore","Anna Colella","Emiliano Fiorillo","Michela Perrotta","Nicola Papa","Vincenzo Di Giacomo","Alfredo Tescione"];
+const CM = ["Pietro Nardi","Cristian Bruno Gallo","Tommaso Lella","Domenico Russo","Marianna Barattini","Domenica Santoro","Veronica Ianniello","Pietro Menditto","Tommaso De Angelis","Elisabetta Santillo","Assunta Altieri","Alessandro Altiero","Annamaria Di Blasio","Valerio Antonio Orlando","Maura Argenziano","Tina Petrillo"];
 
-let currentSez = 1;
-let savedStatus = {};
+let cur = 1;
 let allData = {};
+let saved = {};
 
-function key(nome){ return nome.replace(/ /g,'_'); }
+function k(n){ return n.replace(/ /g,'_'); }
+function iv(id){ return parseInt(document.getElementById(id)?.value||0)||0; }
+function fv(id){ return parseFloat(document.getElementById(id)?.value||0)||0; }
+function fmt(n){ if(!n&&n!==0) return '—'; return parseInt(n).toLocaleString('it-IT'); }
 
-function buildPrefInputs(){
-  const gv = document.getElementById('prefs-v');
-  const gm = document.getElementById('prefs-m');
-  gv.innerHTML = CANDS_V.map(n=>`<div class="fg"><label style="color:#b45309">${n}</label><input type="number" id="pref_${key(n)}" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#f5a800"></div>`).join('');
-  gm.innerHTML = CANDS_M.map(n=>`<div class="fg"><label style="color:#1d4ed8">${n}</label><input type="number" id="pref_${key(n)}" min="0" step="1" placeholder="0" oninput="updatePreview()" style="--focus-color:#1d6fb8"></div>`).join('');
+function buildPrefs(){
+  document.getElementById('prefs-v').innerHTML = CV.map(n=>`<div class="fg"><label style="color:#92400e">${n}</label><input type="number" id="pref_${k(n)}" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#f5a800"></div>`).join('');
+  document.getElementById('prefs-m').innerHTML = CM.map(n=>`<div class="fg"><label style="color:#1e40af">${n}</label><input type="number" id="pref_${k(n)}" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#1d6fb8"></div>`).join('');
 }
 
 function buildSidebar(){
-  const sb = document.getElementById('sidebar-btns');
-  sb.innerHTML = '';
-  for(let i=1;i<=N;i++){
-    const btn = document.createElement('button');
-    btn.className = 'sez-btn' + (i===1?' active':'') + (savedStatus[i]?' saved':'');
-    btn.textContent = 'Sezione '+i;
-    btn.onclick = ()=>goToSez(i);
-    btn.id = `sb-${i}`;
-    sb.appendChild(btn);
-  }
+  document.getElementById('sb-list').innerHTML = Array.from({length:N},(_,i)=>{
+    const n=i+1;
+    return `<button class="sb-btn${n===1?' active':''}" id="sb-${n}" onclick="goTo(${n})">Sez. ${n} <span class="sb-tick">✓</span></button>`;
+  }).join('');
 }
 
-function goToSez(i){
-  currentSez = i;
-  document.querySelectorAll('.sez-btn').forEach(b=>b.classList.remove('active'));
+function goTo(i){
+  cur=i;
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById(`sb-${i}`).classList.add('active');
-  document.getElementById('fp-title').textContent = 'Sezione '+i;
-  const avEl = document.getElementById('f-aventi');
-  if(avEl) avEl.value = AVENTI_DIRITTO[i] || '';
-  loadFormData(i);
-  updateStatus(i);
+  document.getElementById('fp-title').textContent=`Sezione ${i}`;
+  document.getElementById('av-val').textContent=(AVENTI[i]||'—').toLocaleString('it-IT');
+  loadForm(i);
+  updStatus();
 }
 
-function updateStatus(i){
-  const el = document.getElementById('fp-st');
-  if(savedStatus[i]){ el.textContent='✓ Salvata'; el.className='st ok'; }
-  else { el.textContent='Non salvata'; el.className='st empty'; }
+function updStatus(){
+  const el=document.getElementById('fp-st');
+  if(saved[cur]){el.textContent='✓ Salvata';el.className='st ok';}
+  else{el.textContent='Non salvata';el.className='st empty';}
 }
 
-function val(id){ return parseFloat(document.getElementById(id)?.value||0)||0; }
-function ival(id){ return parseInt(document.getElementById(id)?.value||0)||0; }
-
-function updatePreview(){
-  const aventi = AVENTI_DIRITTO[currentSez] || 0;
-  const seggio = ival('f-seggio');
-  const cont = ival('f-cont');
-  const pctAff = aventi>0 ? Math.min(seggio/aventi*100,100) : 0;
-  const pctScr = seggio>0 ? Math.min(cont/seggio*100,100) : 0;
-  const vv=ival('f-vv'), vm=ival('f-vm');
-  const tot2=vv+vm;
-  const pv=tot2>0?(vv/tot2*100).toFixed(1)+'%':'—';
-  const pm=tot2>0?(vm/tot2*100).toFixed(1)+'%':'—';
-  document.getElementById('prev-aff').textContent = seggio>0 ? pctAff.toFixed(1)+'%' : '—';
-  document.getElementById('prev-scr').textContent = cont>0 ? pctScr.toFixed(1)+'%' : '—';
-  document.getElementById('prev-v').textContent = pv;
-  document.getElementById('prev-m').textContent = pm;
-  document.getElementById('prev-val').textContent = tot2>0 ? tot2.toLocaleString('it-IT') : '—';
-  const bn=ival('f-bianche')+ival('f-nulle');
-  document.getElementById('prev-bn').textContent = bn>0 ? bn.toLocaleString('it-IT') : '0';
+function updPrev(){
+  const av=AVENTI[cur]||0;
+  const seg=iv('f-seg'), scr=iv('f-scr');
+  const vv=iv('f-vv'), vm=iv('f-vm');
+  const tot=vv+vm;
+  const pctAff=av>0?Math.min(seg/av*100,100):0;
+  const pctScr=seg>0?Math.min(scr/seg*100,100):0;
+  document.getElementById('pv-aff').textContent=av>0&&seg>0?pctAff.toFixed(1)+'%':'—';
+  document.getElementById('pv-scr').textContent=seg>0?pctScr.toFixed(1)+'%':'—';
+  document.getElementById('pv-v').textContent=tot>0?(vv/tot*100).toFixed(1)+'%':'—';
+  document.getElementById('pv-m').textContent=tot>0?(vm/tot*100).toFixed(1)+'%':'—';
+  document.getElementById('pv-tot').textContent=tot>0?tot.toLocaleString('it-IT'):'—';
 }
 
-function getFormPayload(){
-  const preferenze={};
-  [...CANDS_V,...CANDS_M].forEach(n=>{
-    const v=parseInt(document.getElementById(`pref_${key(n)}`)?.value||0)||0;
-    if(v>0) preferenze[key(n)]=v;
-  });
+function getPayload(){
+  const prefs={};
+  [...CV,...CM].forEach(n=>{const v=iv(`pref_${k(n)}`);if(v>0)prefs[k(n)]=v;});
   return {
-    aventi_diritto: AVENTI_DIRITTO[currentSez]||0,
-    elettori_seggio: ival('f-tot'),
-    contate: ival('f-cont'),
-    voti_vozza: ival('f-vv'),
-    voti_moscatiello: ival('f-vm'),
-    bianche: ival('f-bianche'),
-    nulle: ival('f-nulle'),
-    preferenze,
-    ts: Date.now()
+    aventi_diritto:AVENTI[cur]||0,
+    elettori_seggio:iv('f-seg'),
+    contate:iv('f-scr'),
+    voti_vozza:iv('f-vv'),
+    voti_moscatiello:iv('f-vm'),
+    bianche:iv('f-bi'),
+    nulle:iv('f-nu'),
+    preferenze:prefs,
+    ts:Date.now()
   };
 }
 
-function loadFormData(i){
-  const s = allData[`sezione_${i}`];
-  // setta campo aventi (readonly)
-  const avEl = document.getElementById('f-aventi');
-  if(avEl) avEl.value = AVENTI_DIRITTO[i] || '';
-  const fields = ['f-seggio','f-cont','f-vv','f-vm','f-bianche','f-nulle'];
-  const keys2 = ['seggio','contate','voti_vozza','voti_moscatiello','bianche','nulle'];
-  fields.forEach((f,idx)=>{ document.getElementById(f).value = s?.(keys2[idx])||''; });
-  [...CANDS_V,...CANDS_M].forEach(n=>{
-    const el=document.getElementById(`pref_${key(n)}`);
-    if(el) el.value = s?.preferenze?.[key(n)]||'';
+function loadForm(i){
+  const s=allData[`sezione_${i}`];
+  document.getElementById('f-seg').value=s?.elettori_seggio||s?.tot||'';
+  document.getElementById('f-scr').value=s?.contate||'';
+  document.getElementById('f-vv').value=s?.voti_vozza||'';
+  document.getElementById('f-vm').value=s?.voti_moscatiello||'';
+  document.getElementById('f-bi').value=s?.bianche||'';
+  document.getElementById('f-nu').value=s?.nulle||'';
+  [...CV,...CM].forEach(n=>{
+    const el=document.getElementById(`pref_${k(n)}`);
+    if(el) el.value=s?.preferenze?.[k(n)]||'';
   });
-  updatePreview();
+  updPrev();
 }
 
 function toast(msg,type='ok'){
   const t=document.getElementById('toast');
-  t.textContent=msg; t.className='show '+type;
+  t.textContent=msg;t.className='show '+type;
   clearTimeout(window._tt);
   window._tt=setTimeout(()=>{t.className=type;},3000);
 }
 
 async function salva(){
-  const payload=getFormPayload();
-  if(!payload.contate&&!payload.tot){ toast('Inserisci almeno le schede','err'); return; }
+  const p=getPayload();
+  if(!p.elettori_seggio&&!p.contate){toast('Inserisci almeno le schede','err');return;}
   try{
-    const r=await fetch(`${DB}/elezioni2026/sezione_${currentSez}.json`,{
-      method:'PUT', headers:{'Content-Type':'application/json'},
-      body:JSON.stringify(payload)
+    const r=await fetch(`${DB}/elezioni2026/sezione_${cur}.json`,{
+      method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)
     });
     if(!r.ok) throw new Error('HTTP '+r.status);
-    savedStatus[currentSez]=true;
-    allData[`sezione_${currentSez}`]=payload;
-    document.getElementById(`sb-${currentSez}`).classList.add('saved');
-    updateStatus(currentSez);
-    toast(`✓ Sezione ${currentSez} salvata!`);
+    allData[`sezione_${cur}`]=p;
+    saved[cur]=true;
+    document.getElementById(`sb-${cur}`).classList.add('saved');
+    updStatus();
+    toast(`✓ Sezione ${cur} salvata!`);
   }catch(e){toast('Errore: '+e.message,'err');}
 }
 
 async function resetSez(){
-  if(!confirm(`Resettare sezione ${currentSez}?`)) return;
-  await fetch(`${DB}/elezioni2026/sezione_${currentSez}.json`,{method:'DELETE'});
-  delete allData[`sezione_${currentSez}`];
-  savedStatus[currentSez]=false;
-  document.getElementById(`sb-${currentSez}`).classList.remove('saved');
-  loadFormData(currentSez);
-  updateStatus(currentSez);
-  toast(`Sezione ${currentSez} resettata`);
+  if(!confirm(`Resettare sezione ${cur}?`)) return;
+  await fetch(`${DB}/elezioni2026/sezione_${cur}.json`,{method:'DELETE'});
+  delete allData[`sezione_${cur}`];
+  saved[cur]=false;
+  document.getElementById(`sb-${cur}`).classList.remove('saved');
+  loadForm(cur);updStatus();
+  toast(`Sezione ${cur} resettata`);
 }
 
 async function resetTutto(){
   if(!confirm('Cancellare TUTTI i dati?')) return;
   await fetch(`${DB}/elezioni2026.json`,{method:'DELETE'});
-  allData={};savedStatus={};
-  document.querySelectorAll('.sez-btn').forEach(b=>b.classList.remove('saved'));
-  loadFormData(currentSez);
-  updateStatus(currentSez);
+  allData={};saved={};
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('saved'));
+  loadForm(cur);updStatus();
   toast('Tutti i dati cancellati');
 }
 
@@ -345,27 +325,25 @@ async function loadExisting(){
   try{
     const r=await fetch(`${DB}/elezioni2026.json`);
     const data=await r.json();
-    if(data){
-      allData=data;
-      for(let i=1;i<=N;i++){
-        if(data[`sezione_${i}`]){
-          savedStatus[i]=true;
-          document.getElementById(`sb-${i}`)?.classList.add('saved');
-        }
+    if(!data) return;
+    allData=data;
+    for(let i=1;i<=N;i++){
+      if(data[`sezione_${i}`]){
+        saved[i]=true;
+        document.getElementById(`sb-${i}`)?.classList.add('saved');
       }
-      loadFormData(currentSez);
-      updateStatus(currentSez);
     }
+    loadForm(cur);updStatus();
   }catch(e){console.error(e);}
 }
 
 document.addEventListener('keydown',e=>{
-  if(e.key==='s'&&(e.ctrlKey||e.metaKey)){ e.preventDefault(); salva(); }
+  if(e.key==='s'&&(e.ctrlKey||e.metaKey)){e.preventDefault();salva();}
 });
 
-buildPrefInputs();
+buildPrefs();
 buildSidebar();
-document.getElementById('f-aventi-display').textContent = (AVENTI_DIRITTO[1]||'—').toLocaleString('it-IT');
+document.getElementById('av-val').textContent=(AVENTI[1]).toLocaleString('it-IT');
 loadExisting();
 </script>
 </body>
