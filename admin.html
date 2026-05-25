@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Admin – Casagiove 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --blu:#0c1e35;--blu2:#152d48;--blu3:#1e3f66;
+  --oro:#f5a800;--az:#1d6fb8;
+  --verde:#16a34a;--rosso:#dc2626;
+  --g1:#f8fafc;--g2:#e8edf3;--g3:#94a3b8;--g4:#64748b;--g5:#334155;
+  --testo:#0f172a;--bianco:#fff;
+}
+body{font-family:"Inter",sans-serif;background:#eef2f7;color:var(--testo);}
+
+.hdr{background:linear-gradient(135deg,var(--blu),var(--blu3));padding:0 24px;display:flex;align-items:center;justify-content:space-between;min-height:58px;gap:12px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,.25);}
+.hdr-text h1{color:white;font-size:.92rem;font-weight:800;}
+.hdr-text p{color:#7a9cbf;font-size:.68rem;margin-top:2px;}
+.admin-badge{background:rgba(220,38,38,.2);color:#fca5a5;border:1px solid rgba(220,38,38,.3);padding:4px 12px;border-radius:999px;font-size:.68rem;font-weight:700;letter-spacing:.08em;}
+
+main{max-width:1120px;margin:0 auto;padding:20px 14px 60px;}
+.topbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:14px;}
+.topbar-right{margin-left:auto;font-size:.7rem;color:var(--g3);}
+
+.btn{font-family:"Inter",sans-serif;font-weight:600;font-size:.78rem;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;display:inline-flex;align-items:center;gap:5px;transition:opacity .15s,transform .1s;}
+.btn:hover{opacity:.85;transform:translateY(-1px);}
+.btn-y{background:var(--oro);color:#0c1e35;}
+.btn-r{background:var(--rosso);color:white;}
+.btn-b{background:var(--az);color:white;}
+.btn-ghost{background:var(--bianco);color:var(--testo);border:1px solid var(--g2);}
+
+.info{background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:11px 16px;margin-bottom:16px;font-size:.76rem;color:#92400e;line-height:1.7;}
+.info strong{color:#78350f;}
+
+/* LAYOUT */
+.layout{display:grid;grid-template-columns:148px 1fr;gap:14px;align-items:start;}
+@media(max-width:660px){.layout{grid-template-columns:1fr;}}
+
+/* SIDEBAR */
+.sidebar{background:var(--bianco);border-radius:14px;border:1px solid var(--g2);padding:10px;position:sticky;top:10px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.sb-title{font-size:.6rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--g3);margin-bottom:8px;padding:0 4px;}
+.sb-btn{display:flex;align-items:center;justify-content:space-between;width:100%;text-align:left;padding:7px 10px;border-radius:8px;border:none;background:none;cursor:pointer;font-family:"Inter",sans-serif;font-size:.76rem;font-weight:500;color:var(--g5);transition:background .15s;margin-bottom:2px;}
+.sb-btn:hover{background:var(--g1);}
+.sb-btn.active{background:#fef9ec;color:#92400e;font-weight:700;}
+.sb-btn.saved .sb-tick{display:inline-block;}
+.sb-btn.saved{color:var(--verde);}
+.sb-btn.saved.active{background:#f0fdf4;}
+.sb-tick{display:none;font-size:.65rem;color:var(--verde);}
+
+/* FORM */
+.fp{background:var(--bianco);border-radius:14px;border:1px solid var(--g2);padding:20px 22px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+.fp-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;flex-wrap:wrap;gap:8px;}
+.fp-title{font-size:1.05rem;font-weight:800;color:var(--testo);}
+.st{font-size:.68rem;font-weight:600;padding:3px 10px;border-radius:6px;}
+.st.empty{background:var(--g1);color:var(--g3);}
+.st.ok{background:#dcfce7;color:#166534;}
+
+/* AVENTI */
+.aventi-box{display:flex;align-items:center;justify-content:space-between;background:#e0f2fe;border:1px solid #bae6fd;border-radius:9px;padding:9px 16px;margin-bottom:14px;}
+.av-lbl{font-size:.65rem;font-weight:700;letter-spacing:.09em;text-transform:uppercase;color:#0369a1;}
+.av-val{font-size:1.4rem;font-weight:900;color:#0369a1;}
+.av-sub{font-size:.65rem;color:#0369a1;opacity:.7;}
+
+/* PREVIEW */
+.preview{display:flex;gap:8px;flex-wrap:wrap;background:var(--g1);border-radius:10px;padding:11px 14px;margin-bottom:16px;border:1px solid var(--g2);}
+.pv-item{flex:1;min-width:80px;text-align:center;}
+.pv-lbl{font-size:.58rem;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--g3);}
+.pv-val{font-size:1.1rem;font-weight:800;margin-top:3px;}
+.pv-val.v{color:var(--oro);}
+.pv-val.m{color:var(--az);}
+.pv-val.n{color:var(--g5);}
+
+/* SEZIONI FORM */
+.sg{margin-bottom:16px;}
+.sg-title{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:9px;padding-bottom:7px;border-bottom:2px solid;display:flex;align-items:center;gap:6px;}
+.sg-title.scr{color:var(--g4);border-color:var(--g2);}
+.sg-title.sv{color:#92400e;border-color:#fde68a;}
+.sg-title.sm{color:#1e40af;border-color:#bfdbfe;}
+.fg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));gap:8px;}
+.fg{}
+.fg label{display:block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.fg input{width:100%;background:var(--g1);border:1px solid var(--g2);border-radius:7px;padding:8px 11px;color:var(--testo);font-family:"Inter",sans-serif;font-size:.92rem;font-weight:700;transition:border-color .2s,background .2s;-moz-appearance:textfield;}
+.fg input::-webkit-inner-spin-button,.fg input::-webkit-outer-spin-button{-webkit-appearance:none;}
+.fg input:focus{outline:none;border-color:var(--fc,var(--oro));background:var(--bianco);}
+
+.actions{display:flex;gap:8px;margin-top:18px;}
+.actions .btn{flex:1;justify-content:center;padding:10px;}
+
+#toast{position:fixed;bottom:18px;right:18px;padding:11px 20px;border-radius:10px;font-size:.82rem;font-weight:600;color:white;transform:translateY(60px);opacity:0;transition:all .3s;z-index:9999;box-shadow:0 4px 16px rgba(0,0,0,.2);}
+#toast.show{transform:translateY(0);opacity:1;}
+#toast.ok{background:var(--verde);}
+#toast.err{background:var(--rosso);}
+
+.stato-wrap{display:flex;align-items:center;justify-content:space-between;border:1.5px solid var(--g2);border-radius:10px;padding:12px 16px;margin-top:16px;margin-bottom:4px;background:var(--g1);}
+.stato-label{font-size:.78rem;font-weight:600;color:var(--g5);}
+.stato-sub{font-size:.68rem;color:var(--g3);margin-top:2px;}
+.toggle-wrap{display:flex;align-items:center;gap:10px;}
+.toggle{position:relative;width:48px;height:26px;flex-shrink:0;}
+.toggle input{opacity:0;width:0;height:0;position:absolute;}
+.toggle-slider{position:absolute;inset:0;background:var(--g2);border-radius:999px;cursor:pointer;transition:background .25s;}
+.toggle-slider:before{content:"";position:absolute;width:20px;height:20px;left:3px;top:3px;background:white;border-radius:50%;transition:transform .25s;box-shadow:0 1px 4px rgba(0,0,0,.2);}
+.toggle input:checked+.toggle-slider{background:var(--verde);}
+.toggle input:checked+.toggle-slider:before{transform:translateX(22px);}
+.toggle-txt{font-size:.8rem;font-weight:700;min-width:70px;}
+.toggle-txt.on{color:var(--verde);}
+.toggle-txt.off{color:var(--g3);}
+.stato-badge{font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:5px;}
+.stato-badge.def{background:#dcfce7;color:#166534;}
+.stato-badge.prov{background:#fef3c7;color:#92400e;}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-text">
+    <h1>Pannello Admin – Inserimento Risultati</h1>
+    <p>Elezioni Comunali Casagiove 2026 · % calcolate automaticamente · Ctrl+S per salvare</p>
+  </div>
+  <div class="admin-badge">RISERVATO</div>
+</div>
+
+<main>
+  <div class="info">
+    <strong>Istruzioni:</strong> Seleziona la sezione dalla barra sinistra. Inserisci <strong>elettori al seggio</strong>, <strong>schede scrutinate</strong>, <strong>voti Vozza</strong>, <strong>voti Moscatiello</strong>, <strong>bianche</strong>, <strong>nulle</strong> e le <strong>preferenze</strong> di ogni candidato. L'anteprima si aggiorna in tempo reale. Premi <strong>Ctrl+S</strong> per salvare.
+  </div>
+  <div class="topbar">
+    <button class="btn btn-b" onclick="window.open('risultati.html','_blank')">&#128065; Vedi risultati live</button>
+    <button class="btn btn-r" onclick="resetTutto()">&#128465; Reset completo</button>
+    <span class="topbar-right">Dati visibili online entro 10 secondi</span>
+  </div>
+
+  <div class="layout">
+    <div class="sidebar">
+      <div class="sb-title">Sezioni</div>
+      <div id="sb-list"></div>
+    </div>
+
+    <div class="fp">
+      <div class="fp-head">
+        <div class="fp-title" id="fp-title">Sezione 1</div>
+        <div class="st empty" id="fp-st">Non salvata</div>
+      </div>
+
+      <div class="aventi-box">
+        <div>
+          <div class="av-lbl">Aventi diritto al voto</div>
+          <div class="av-sub">Dato fisso per questa sezione</div>
+        </div>
+        <div class="av-val" id="av-val">—</div>
+      </div>
+
+      <div class="preview">
+        <div class="pv-item"><div class="pv-lbl">Affluenza</div><div class="pv-val n" id="pv-aff">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Scrutinate %</div><div class="pv-val n" id="pv-scr">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Vozza %</div><div class="pv-val v" id="pv-v">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Moscatiello %</div><div class="pv-val m" id="pv-m">—</div></div>
+        <div class="pv-item"><div class="pv-lbl">Voti validi</div><div class="pv-val n" id="pv-tot">—</div></div>
+      </div>
+
+      <!-- SCHEDE -->
+      <div class="sg">
+        <div class="sg-title scr">&#128203; Dati schede</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:var(--g4);--fc:#64748b">Elettori al seggio</label><input type="number" id="f-seg" min="0" step="1" placeholder="es. 480" oninput="updPrev()"></div>
+          <div class="fg"><label style="color:var(--g4);--fc:#64748b">Schede scrutinate</label><input type="number" id="f-scr" min="0" step="1" placeholder="es. 480" oninput="updPrev()"></div>
+          <div class="fg"><label style="color:#dc2626">Schede bianche</label><input type="number" id="f-bi" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#dc2626"></div>
+          <div class="fg"><label style="color:#dc2626">Schede nulle</label><input type="number" id="f-nu" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#dc2626"></div>
+        </div>
+      </div>
+
+      <!-- VOTI SINDACI -->
+      <div class="sg">
+        <div class="sg-title sv">&#9632; Voti lista Vozza</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:#92400e">Voti Vozza</label><input type="number" id="f-vv" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#f5a800"></div>
+        </div>
+      </div>
+      <div class="sg">
+        <div class="sg-title sm">&#9632; Voti lista Moscatiello</div>
+        <div class="fg-grid">
+          <div class="fg"><label style="color:#1e40af">Voti Moscatiello</label><input type="number" id="f-vm" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#1d6fb8"></div>
+        </div>
+      </div>
+
+      <!-- PREFERENZE VOZZA -->
+      <div class="sg">
+        <div class="sg-title sv">&#9632; Preferenze candidati – Lista Vozza</div>
+        <div class="fg-grid" id="prefs-v"></div>
+      </div>
+
+      <!-- PREFERENZE MOSCATIELLO -->
+      <div class="sg">
+        <div class="sg-title sm">&#9632; Preferenze candidati – Lista Moscatiello</div>
+        <div class="fg-grid" id="prefs-m"></div>
+      </div>
+
+      <!-- STATO DEFINITIVO -->
+      <div class="stato-wrap">
+        <div>
+          <div class="stato-label">Stato dati sezione</div>
+          <div class="stato-sub">Segna come definitivo quando hai finito di inserire tutto</div>
+        </div>
+        <div class="toggle-wrap">
+          <span class="toggle-txt off" id="stato-txt">Provvisorio</span>
+          <label class="toggle">
+            <input type="checkbox" id="f-def" onchange="updStatoTxt()">
+            <span class="toggle-slider"></span>
+          </label>
+          <span class="stato-badge prov" id="stato-badge">PROV</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-y" onclick="salva()">&#128190; Salva sezione</button>
+        <button class="btn btn-ghost" onclick="resetSez()">&#10005; Reset sezione</button>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="toast"></div>
+
+<script>
+const DB = "https://casagiove2026-default-rtdb.europe-west1.firebasedatabase.app";
+const N  = 15;
+const AVENTI = {1:766,2:649,3:804,4:737,5:913,6:689,7:674,8:653,9:601,10:662,11:652,12:748,13:858,14:904,15:943};
+const CV = ["Valerio Cappio","Anna Altavilla","Gennaro Caiazza","Elpidio Scialla","Maria Rosaria Tavano","Alessandro Antonelli","Carlo Senatore","Armando Celentano","Giovanna Ferrante","Daniela Rettore","Anna Colella","Emiliano Fiorillo","Michela Perrotta","Nicola Papa","Vincenzo Di Giacomo","Alfredo Tescione"];
+const CM = ["Pietro Nardi","Cristian Bruno Gallo","Tommaso Lella","Domenico Russo","Marianna Barattini","Domenica Santoro","Veronica Ianniello","Pietro Menditto","Tommaso De Angelis","Elisabetta Santillo","Assunta Altieri","Alessandro Altiero","Annamaria Di Blasio","Valerio Antonio Orlando","Maura Argenziano","Tina Petrillo"];
+
+let cur = 1;
+let allData = {};
+let saved = {};
+
+function k(n){ return n.replace(/ /g,'_'); }
+function iv(id){ return parseInt(document.getElementById(id)?.value||0)||0; }
+function fv(id){ return parseFloat(document.getElementById(id)?.value||0)||0; }
+function fmt(n){ if(!n&&n!==0) return '—'; return parseInt(n).toLocaleString('it-IT'); }
+
+function buildPrefs(){
+  document.getElementById('prefs-v').innerHTML = CV.map(n=>`<div class="fg"><label style="color:#92400e">${n}</label><input type="number" id="pref_${k(n)}" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#f5a800"></div>`).join('');
+  document.getElementById('prefs-m').innerHTML = CM.map(n=>`<div class="fg"><label style="color:#1e40af">${n}</label><input type="number" id="pref_${k(n)}" min="0" step="1" placeholder="0" oninput="updPrev()" style="--fc:#1d6fb8"></div>`).join('');
+}
+
+function buildSidebar(){
+  document.getElementById('sb-list').innerHTML = Array.from({length:N},(_,i)=>{
+    const n=i+1;
+    return `<button class="sb-btn${n===1?' active':''}" id="sb-${n}" onclick="goTo(${n})">Sez. ${n} <span class="sb-tick">✓</span></button>`;
+  }).join('');
+}
+
+function goTo(i){
+  cur=i;
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById(`sb-${i}`).classList.add('active');
+  document.getElementById('fp-title').textContent=`Sezione ${i}`;
+  document.getElementById('av-val').textContent=(AVENTI[i]||'—').toLocaleString('it-IT');
+  loadForm(i);
+  updStatus();
+}
+
+function updStatoTxt(){
+  const checked=document.getElementById('f-def').checked;
+  const txt=document.getElementById('stato-txt');
+  const badge=document.getElementById('stato-badge');
+  if(checked){txt.textContent='Definitivo';txt.className='toggle-txt on';badge.textContent='DEF';badge.className='stato-badge def';}
+  else{txt.textContent='Provvisorio';txt.className='toggle-txt off';badge.textContent='PROV';badge.className='stato-badge prov';}
+}
+
+function updStatus(){
+  const el=document.getElementById('fp-st');
+  if(saved[cur]){el.textContent='✓ Salvata';el.className='st ok';}
+  else{el.textContent='Non salvata';el.className='st empty';}
+}
+
+function calcScrutinate(){
+  const vv=iv('f-vv'), vm=iv('f-vm');
+  const bi=iv('f-bi'), nu=iv('f-nu');
+  // somma tutte le preferenze
+  let prefV=0, prefM=0;
+  CV.forEach(n=>{prefV+=iv(`pref_${k(n)}`);});
+  CM.forEach(n=>{prefM+=iv(`pref_${k(n)}`);});
+  // le schede scrutinate = voti lista (se inseriti) + bianche + nulle
+  // ma se i voti lista non sono inseriti usa le preferenze come proxy
+  const votiTot = (vv||prefV) + (vm||prefM);
+  return votiTot + bi + nu;
+}
+
+function updPrev(){
+  const av=AVENTI[cur]||0;
+  const seg=iv('f-seg');
+  const scr=calcScrutinate();
+  const vv=iv('f-vv'), vm=iv('f-vm');
+  const tot=vv+vm;
+  const pctAff=av>0&&seg>0?Math.min(seg/av*100,100):0;
+  const pctScr=seg>0?Math.min(scr/seg*100,100):0;
+  // aggiorna display schede scrutinate
+  const scrDisplay=document.getElementById('f-scr-display');
+  if(scrDisplay) scrDisplay.textContent=scr>0?scr.toLocaleString('it-IT'):'0';
+  document.getElementById('pv-aff').textContent=av>0&&seg>0?pctAff.toFixed(1)+'%':'—';
+  document.getElementById('pv-scr').textContent=seg>0?pctScr.toFixed(1)+'%':'—';
+  document.getElementById('pv-v').textContent=tot>0?(vv/tot*100).toFixed(1)+'%':'—';
+  document.getElementById('pv-m').textContent=tot>0?(vm/tot*100).toFixed(1)+'%':'—';
+  document.getElementById('pv-tot').textContent=tot>0?tot.toLocaleString('it-IT'):'—';
+}
+
+function getPayload(){
+  const prefs={};
+  [...CV,...CM].forEach(n=>{const v=iv(`pref_${k(n)}`);if(v>0)prefs[k(n)]=v;});
+  return {
+    aventi_diritto:AVENTI[cur]||0,
+    elettori_seggio:iv('f-seg'),
+    contate:calcScrutinate(),
+    voti_vozza:iv('f-vv'),
+    voti_moscatiello:iv('f-vm'),
+    bianche:iv('f-bi'),
+    nulle:iv('f-nu'),
+    preferenze:prefs,
+    definitivo: document.getElementById('f-def').checked,
+    ts:Date.now()
+  };
+}
+
+function loadForm(i){
+  const s=allData[`sezione_${i}`];
+  document.getElementById('f-seg').value=s?.elettori_seggio||s?.tot||'';
+  // f-scr è calcolato automaticamente, non si carica
+  document.getElementById('f-vv').value=s?.voti_vozza||'';
+  document.getElementById('f-vm').value=s?.voti_moscatiello||'';
+  document.getElementById('f-bi').value=s?.bianche||'';
+  document.getElementById('f-nu').value=s?.nulle||'';
+  [...CV,...CM].forEach(n=>{
+    const el=document.getElementById(`pref_${k(n)}`);
+    if(el) el.value=s?.preferenze?.[k(n)]||'';
+  });
+  const defEl=document.getElementById('f-def');
+  if(defEl){ defEl.checked=!!(s?.definitivo); updStatoTxt(); }
+  updPrev();
+}
+
+function toast(msg,type='ok'){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.className='show '+type;
+  clearTimeout(window._tt);
+  window._tt=setTimeout(()=>{t.className=type;},3000);
+}
+
+async function salva(){
+  const p=getPayload();
+  if(!p.elettori_seggio&&!p.contate){toast('Inserisci almeno le schede','err');return;}
+  try{
+    const r=await fetch(`${DB}/elezioni2026/sezione_${cur}.json`,{
+      method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)
+    });
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    allData[`sezione_${cur}`]=p;
+    saved[cur]=true;
+    document.getElementById(`sb-${cur}`).classList.add('saved');
+    updStatus();
+    toast(`✓ Sezione ${cur} salvata!`);
+  }catch(e){toast('Errore: '+e.message,'err');}
+}
+
+async function resetSez(){
+  if(!confirm(`Resettare sezione ${cur}?`)) return;
+  await fetch(`${DB}/elezioni2026/sezione_${cur}.json`,{method:'DELETE'});
+  delete allData[`sezione_${cur}`];
+  saved[cur]=false;
+  document.getElementById(`sb-${cur}`).classList.remove('saved');
+  loadForm(cur);updStatus();
+  toast(`Sezione ${cur} resettata`);
+}
+
+async function resetTutto(){
+  if(!confirm('Cancellare TUTTI i dati?')) return;
+  await fetch(`${DB}/elezioni2026.json`,{method:'DELETE'});
+  allData={};saved={};
+  document.querySelectorAll('.sb-btn').forEach(b=>b.classList.remove('saved'));
+  loadForm(cur);updStatus();
+  toast('Tutti i dati cancellati');
+}
+
+async function loadExisting(){
+  try{
+    const r=await fetch(`${DB}/elezioni2026.json`);
+    const data=await r.json();
+    if(!data) return;
+    allData=data;
+    for(let i=1;i<=N;i++){
+      if(data[`sezione_${i}`]){
+        saved[i]=true;
+        const sbEl=document.getElementById(`sb-${i}`);
+        if(sbEl){
+          sbEl.classList.add('saved');
+          const isDef=data[`sezione_${i}`]?.definitivo;
+          const tick=sbEl.querySelector('.sb-tick');
+          if(tick) tick.textContent=isDef?' ✓':' ~';
+        }
+      }
+    }
+    loadForm(cur);updStatus();
+  }catch(e){console.error(e);}
+}
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='s'&&(e.ctrlKey||e.metaKey)){e.preventDefault();salva();}
+});
+
+buildPrefs();
+buildSidebar();
+document.getElementById('av-val').textContent=(AVENTI[1]).toLocaleString('it-IT');
+loadExisting();
+</script>
+</body>
+</html>
